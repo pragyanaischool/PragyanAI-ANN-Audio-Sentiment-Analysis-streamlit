@@ -68,7 +68,7 @@ else:
     st.audio(audio_path, format="audio/wav")
 
 # Analysis execution section
-if audio_ready and st.button("🚀 Process Audio & Analyze Sentiment"):
+if audio_ready and st.button(" Process Audio & Analyze Sentiment"):
 
   # Create an expandable container explaining step-by-step what is happening
   with st.status(
@@ -98,7 +98,7 @@ if audio_ready and st.button("🚀 Process Audio & Analyze Sentiment"):
 
     # 2. Audio Feature Extraction (MFCCs)
     st.write(
-        "🔬 **Step 3: Feature Extraction (Preprocessing)** — Loading audio with"
+        " **Step 3: Feature Extraction (Preprocessing)** — Loading audio with"
         " Librosa (22050Hz) and extracting 40 Mel-Frequency Cepstral Coefficients"
         " (MFCCs) as a mathematical fingerprint."
     )
