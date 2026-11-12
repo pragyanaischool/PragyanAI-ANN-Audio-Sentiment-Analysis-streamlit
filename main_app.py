@@ -8,8 +8,8 @@ import tensorflow as tf
 st.set_page_config(
     page_title="Audio Speech-to-Text & Sentiment Analysis", layout="centered"
 )
-
-st.title("🎙️ Audio Speech-to-Text & Sentiment Analysis (Tiny ANN)")
+st.image()
+st.title(" Audio Speech-to-Text & Sentiment Analysis (Tiny ANN)")
 st.write(
     "Record your voice or upload an audio file to transcribe speech and"
     " classify its emotional sentiment using a Tiny TFLite ANN model."
@@ -72,17 +72,17 @@ if audio_ready and st.button("🚀 Process Audio & Analyze Sentiment"):
 
   # Create an expandable container explaining step-by-step what is happening
   with st.status(
-      "⚙️ Executing pipeline steps...", expanded=True
+      " Executing pipeline steps...", expanded=True
   ) as status_container:
 
     st.write(
-        "📁 **Step 1: File Ingestion** — Captured audio file stored securely in"
+        " **Step 1: File Ingestion** — Captured audio file stored securely in"
         " temporary runtime environment."
     )
 
     # 1. Speech-to-Text Transcription
     st.write(
-        "📝 **Step 2: Speech-to-Text Transcription** — Passing waveform to Google"
+        " **Step 2: Speech-to-Text Transcription** — Passing waveform to Google"
         " Speech Recognition API..."
     )
     recognizer = sr.Recognizer()
@@ -114,7 +114,7 @@ if audio_ready and st.button("🚀 Process Audio & Analyze Sentiment"):
 
       # 3. Tiny ANN TFLite Inference
       st.write(
-          "🧠 **Step 4: Tiny ANN Inference** — Feeding feature vector into"
+          " **Step 4: Tiny ANN Inference** — Feeding feature vector into"
           " optimized `audio_sentiment_tiny.tflite` model interpreter..."
       )
       interpreter.set_tensor(input_details[0]["index"], input_data)
@@ -145,13 +145,13 @@ if audio_ready and st.button("🚀 Process Audio & Analyze Sentiment"):
     col1, col2 = st.columns(2)
 
     with col1:
-      st.subheader("📝 Speech Transcription")
+      st.subheader(" Speech Transcription")
       st.success(
           transcript if transcript else "No speech detected or transcribed."
       )
 
     with col2:
-      st.subheader("🧠 Sentiment Prediction")
+      st.subheader(" Sentiment Prediction")
       # Map classes to human-readable emotions (adjust based on your dataset LabelEncoder classes)
       emotion_map = {
           0: "Neutral",
