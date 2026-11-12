@@ -5,14 +5,6 @@ import speech_recognition as sr
 import streamlit as st
 import tensorflow as tf
 
-# Optional audio recorder component for live mic recording
-try:
-  from audiorecorder import audiorecorder
-
-  HAS_AUDIORECORDER = True
-except ImportError:
-  HAS_AUDIORECORDER = False
-
 st.set_page_config(
     page_title="Audio Speech-to-Text & Sentiment Analysis", layout="centered"
 )
@@ -46,7 +38,7 @@ except Exception as e:
       f"⚠️ TFLite model file not found or failed to load: {str(e)}"
   )
 
-# Choose Input Method: Upload vs. Live Recording
+# Choose Input Method: Upload vs. Native Live Recording
 input_method = st.radio(
     "Select Audio Input Method:", ("Upload Audio File", "Record Live Audio")
 )
@@ -65,28 +57,15 @@ if input_method == "Upload Audio File":
     st.audio(audio_path, format="audio/wav")
 
 else:
-  st.write("Click record below to capture audio directly from your microphone:")
-  if HAS_AUDIORECORDER:
-    recorded_audio = audiorecorder("Start Recording", "Stop Recording")
-    if len(recorded_audio) > 0:
-      # Export recorded audio to wav file
-      recorded_audio.export(audio_path, format="wav")
-      audio_ready = True
-      st.audio(audio_path, format="audio/wav")
-  else:
-    st.info(
-        "💡 To enable live mic recording, add `streamlit-audiorecorder` to your"
-        " requirements.txt. Alternatively, use the file uploader above!"
-    )
-    # Standard fallback streamlit file uploader if audiorecorder package is absent
-    fallback_file = st.file_uploader(
-        "Upload recorded .wav file", type=["wav", "mp3"]
-    )
-    if fallback_file is not None:
-      with open(audio_path, "wb") as f:
-        f.write(fallback_file.getbuffer())
-      audio_ready = True
-      st.audio(audio_path, format="audio/wav")
+  st.write("Record audio directly using your microphone:")
+  # Native Streamlit audio recorder (requires no external system binaries)
+  audio_value = st.audio_input("Record your voice")
+
+  if audio_value is not None:
+    with open(audio_path, "wb") as f:
+      f.write(audio_value.getbuffer())
+    audio_ready = True
+    st.audio(audio_path, format="audio/wav")
 
 # Analysis execution section
 if audio_ready and st.button("🚀 Process Audio & Analyze Sentiment"):
@@ -159,7 +138,6 @@ if audio_ready and st.button("🚀 Process Audio & Analyze Sentiment"):
           label="❌ Pipeline execution failed.", state="error", expanded=True
       )
       st.error(f"Inference execution failed: {str(model_error)}")
-      stopped = True
 
   # Display Results Outside the Status Box
   if "transcript" in locals() and "output_data" in locals():
