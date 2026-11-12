@@ -6,10 +6,10 @@ import streamlit as st
 import tensorflow as tf
 
 st.set_page_config(
-    page_title="Audio Speech-to-Text & Sentiment Analysis", layout="centered"
+    page_title="PragyanAI - Class Audio Speech-to-Text & Sentiment Analysis", layout="centered"
 )
-st.image()
-st.title(" Audio Speech-to-Text & Sentiment Analysis (Tiny ANN)")
+st.image("PragyanAI_Transperent.png")
+st.title(" PragyanAI - Class - Audio Speech-to-Text & Sentiment Analysis (Tiny ANN)")
 st.write(
     "Record your voice or upload an audio file to transcribe speech and"
     " classify its emotional sentiment using a Tiny TFLite ANN model."
