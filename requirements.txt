@@ -5,3 +5,4 @@ librosa
 soundfile
 SpeechRecognition
 pydub
+streamlit-audiorecorder
